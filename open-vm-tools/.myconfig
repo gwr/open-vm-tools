@@ -1,0 +1,12 @@
+
+
+autoreconf -v -i
+
+./configure \
+ --disable-deploypkg \
+ --without-xerces \
+ --without-dnet \
+ --without-icu \
+ --disable-static
+
+echo gmake install DESTDIR=`pwd`/proto
