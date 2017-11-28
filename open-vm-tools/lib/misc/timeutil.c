@@ -849,11 +849,7 @@ TimeUtil_GetTimeFormat(int64 utcTime,  // IN
    char buf[26];
    const time_t t = (time_t) utcTime;  // Implicit narrowing on 32-bit
 
-#if defined sun
-   str = Util_SafeStrdup(ctime_r(&t, buf, sizeof buf));
-#else
    str = Util_SafeStrdup(ctime_r(&t, buf));
-#endif
    str[strlen(str) - 1] = '\0';  // Remove the trailing '\n'.
 
    return str;

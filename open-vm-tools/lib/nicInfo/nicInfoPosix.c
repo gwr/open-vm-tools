@@ -116,6 +116,10 @@
 #endif
 #include "netutil.h"
 #include "file.h"
+#ifdef	__sun
+#include "net/if.h"
+#include "ifaddrs.h"
+#endif
 
 #ifndef IN6_IS_ADDR_UNIQUELOCAL
 #define IN6_IS_ADDR_UNIQUELOCAL(a)        \
@@ -348,7 +352,7 @@ GuestInfoGetNicInfo(NicInfoV3 *nicInfo) // OUT
  *
  ******************************************************************************
  */
-#if defined(__FreeBSD__) || defined(__APPLE__) || defined(USERWORLD)
+#if defined(__FreeBSD__) || defined(__APPLE__) || defined(USERWORLD) || defined(__sun)
 
 char *
 GuestInfoGetPrimaryIP(void)

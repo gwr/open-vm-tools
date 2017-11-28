@@ -934,7 +934,7 @@ CodeSetOld_GenericToGenericDb(char const *codeIn,   // IN:
        * change bufIn so a simple cast is safe. --plangdale
        */
 
-#ifdef __linux__
+#if defined (__linux__) || defined (__sun)
       status = iconv(cd, (char **)&bufIn, &sizeIn, &out, &outLeft);
 #else
       status = iconv(cd, &bufIn, &sizeIn, &out, &outLeft);

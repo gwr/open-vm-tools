@@ -200,6 +200,8 @@
 #define SC_EIP(uc) ((unsigned long) (uc)->uc_mcontext.mc_eip)
 #endif
 #elif defined (sun)
+/* Because we included <sys/ucontext.h> above, not <ucontext.h> */
+#include <sys/regset.h>
 #ifdef __x86_64__
 #define SC_EAX(uc) ((unsigned long) (uc)->uc_mcontext.gregs[REG_RAX])
 #define SC_EBX(uc) ((unsigned long) (uc)->uc_mcontext.gregs[REG_RBX])

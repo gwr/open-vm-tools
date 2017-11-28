@@ -60,6 +60,11 @@
 #define LOGLEVEL_MODULE main
 #include "loglevel_user.h"
 
+#ifdef	__sun
+/* Conflict from sys/sync.h -- not needed here */
+#undef	LOCK_SHARED
+#endif
+
 #define LOCK_SHARED     "S"
 #define LOCK_EXCLUSIVE  "X"
 #define FILELOCK_PROGRESS_DEARTH 8000 // Dearth of progress time in msec

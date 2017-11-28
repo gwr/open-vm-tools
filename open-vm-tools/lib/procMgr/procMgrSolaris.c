@@ -647,8 +647,13 @@ ProcMgr_ImpersonateUserStart(const char *user,  // IN: UTF-8 encoded user name
    int ret;
    char *userLocal;
 
-   ppw = &pw;
-   if ((ppw = getpwuid_r(0, &pw, buffer, sizeof buffer)) == NULL) {
+   /*
+    * For illumos and OI, we build this code with:
+    * -D__EXTENSIONS__ -D_XOPEN_SOURCE=600
+    * so we get the "posix" declarations.
+    */
+   ppw = NULL;
+   if ((ret = getpwuid_r(0, &pw, buffer, sizeof buffer, &ppw)) != 0) {
       return FALSE;
    }
 
@@ -661,11 +666,12 @@ ProcMgr_ImpersonateUserStart(const char *user,  // IN: UTF-8 encoded user name
        return FALSE;
    }
 
-   ppw = getpwnam_r(userLocal, &pw, buffer, sizeof buffer);
+   ppw = NULL;
+   ret = getpwnam_r(userLocal, &pw, buffer, sizeof buffer, &ppw);
 
    free(userLocal);
 
-   if (ppw == NULL) {
+   if (ret != 0) {
       return FALSE;
    }
 
@@ -759,8 +765,8 @@ ProcMgr_ImpersonateUserStop(void)
    struct passwd *ppw;
    int ret;
 
-   ppw = &pw;
-   if ((ppw = getpwuid_r(0, &pw, buffer, sizeof buffer)) == NULL) {
+   ppw = NULL;
+   if ((ret = getpwuid_r(0, &pw, buffer, sizeof buffer, &ppw)) != 0) {
       return FALSE;
    }
 
@@ -819,12 +825,13 @@ ProcMgr_GetImpersonatedUserInfo(char **userName,            // OUT
    char buffer[BUFSIZ];
    struct passwd pw;
    struct passwd *ppw;
+   int ret;
 
    *userName = NULL;
    *homeDir = NULL;
 
-   ppw = &pw;
-   if ((ppw = getpwuid_r(Id_GetEUid(), &pw, buffer, sizeof buffer)) == NULL) {
+   ppw = NULL;
+   if ((ret = getpwuid_r(Id_GetEUid(), &pw, buffer, sizeof buffer, &ppw)) != 0) {
       return FALSE;
    }
 
