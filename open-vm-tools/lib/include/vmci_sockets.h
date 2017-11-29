@@ -841,7 +841,7 @@ struct uuid_2_cid {
       return io.u2c_context_id;
    }
 #  endif // __KERNEL__
-#elif defined(__FreeBSD__)
+#elif defined(__FreeBSD__) || defined(__sun)
    /*
     * No FreeBSD support yet, but it might appear in the future. Just define
     * some stubs that return errors - that way a client doesn't have to ifdef

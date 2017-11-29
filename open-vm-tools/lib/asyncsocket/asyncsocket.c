@@ -109,6 +109,10 @@
  */
 #define ADDR_STRING_LEN (INET6_ADDRSTRLEN + 2 + PORT_STRING_LEN)
 
+#ifndef	Min
+#define	Min(a, b) (((a) < (b)) ? (a) : (b))
+#endif
+
 /*
  * The slots each have a "unique" ID, which is just an incrementing integer.
  */

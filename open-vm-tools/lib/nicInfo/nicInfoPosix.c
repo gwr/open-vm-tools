@@ -137,7 +137,7 @@ static void RecordNetworkAddress(GuestNicV3 *nic, const struct addr *addr);
 static int ReadInterfaceDetails(const struct intf_entry *entry, void *arg);
 static Bool RecordRoutingInfo(NicInfoV3 *nicInfo);
 
-#if !defined(__FreeBSD__) && !defined(__APPLE__) && !defined(USERWORLD)
+#if !defined(__FreeBSD__) && !defined(__APPLE__) && !defined(USERWORLD) && !defined(__sun)
 static int GuestInfoGetIntf(const struct intf_entry *entry, void *arg);
 #endif
 
@@ -927,7 +927,7 @@ RecordRoutingInfo(NicInfoV3 *nicInfo)
 }
 #endif                                          // else
 
-#if !defined(__FreeBSD__) && !defined(__APPLE__) && !defined(USERWORLD)
+#if !defined(__FreeBSD__) && !defined(__APPLE__) && !defined(USERWORLD) && !defined(__sun)
 /*
  ******************************************************************************
  * GuestInfoGetIntf --                                                   */ /**

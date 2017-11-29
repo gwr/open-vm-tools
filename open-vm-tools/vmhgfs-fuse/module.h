@@ -65,7 +65,7 @@
 #include "session.h"
 #include "config.h"
 
-#if defined(__SOLARIS__) || defined(__APPLE__)
+#if defined(__SOLARIS__) || defined(__APPLE__) || defined(__sun)
 #define DT_UNKNOWN      0
 #define DT_FIFO         1
 #define DT_CHR          2
