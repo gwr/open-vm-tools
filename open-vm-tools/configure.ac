@@ -1439,6 +1439,7 @@ PLUGIN_LDFLAGS="-Wl,-z,defs -Wl,-lc -shared -module -avoid-version"
 XDR_LIBS=
 if test "$os" = "solaris"; then
    XDR_LIBS="-lnsl -lrpcsvc"
+   PLUGIN_LDFLAGS="$PLUGIN_LDFLAGS -mimpure-text"
 fi
 
 # Installation directories for core services plugins.
