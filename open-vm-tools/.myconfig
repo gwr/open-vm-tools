@@ -1,0 +1,24 @@
+
+
+autoreconf -v -i -f
+
+./configure \
+ PKG_CONFIG_PATH="/usr/lib/pkgconfig" \
+ --prefix=/usr \
+ --mandir=/usr/share/man \
+ --bindir=/usr/bin \
+ --libdir=/usr/lib \
+ --sbindir=/usr/sbin \
+ --disable-deploypkg \
+ --disable-grabbitmqproxy \
+ --without-xerces \
+ --without-icu \
+ --without-kernel-modules \
+ --disable-static
+
+echo 'Check postdep_objects_CXX=badness'
+echo 'Should be: ...crtend.o /usr/lib/crtn.o'
+echo 'Fix and re-run config.status'
+echo 'Also CFLAGS ... Wno-unused-const-variable (not valid in g++)'
+
+echo gmake install DESTDIR=`pwd`/proto
